@@ -1,23 +1,21 @@
 #!/usr/bin/python3
 """Flask server (variable app)
 """
-import sys
-import os
-from flask import Flask, jsonify
+
+from flask import Flask
 from models import storage
 from os import getenv
 from api.v1.views import app_views
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
+
 app = Flask(__name__)
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.register_blueprint(app_views)
 app.url_map.strict_slashes = False
 
-
 @app.teardown_appcontext
-def downtear(self):
+def downtear(error):
     '''Status of your API'''
     storage.close()
-
 
 if __name__ == "__main__":
     host = getenv('HBNB_API_HOST')
