@@ -9,13 +9,12 @@ this is the starting point of v1
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
+app.url_map.strict_slashes = False
 
 @app.teardown_appcontext
-def handleTearDown(exception):
-  """
-  handle teardown
-  """
-  storage.close()
+def downtear(self):
+    '''Status of your API'''
+    storage.close()
 
 
 if __name__ == "__main__":
