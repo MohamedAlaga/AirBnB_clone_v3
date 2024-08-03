@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from api.v1.views import app_views
-from flask import Flask,jsonify
+from flask import jsonify
 """
 this module for defining the routes of the views
 """
