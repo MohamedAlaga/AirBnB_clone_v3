@@ -5,8 +5,9 @@ from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
 
 
-@app_views.route('/api/v1/amenities', methods=['GET'],
+@app_views.route('amenities', methods=['GET'],
                  strict_slashes=False)
+@swag_from('documentation/amenity/all_amenities.yml')
 def get_amenities():
     """
     Retrieves the list of all cities objects
@@ -19,8 +20,9 @@ def get_amenities():
 
     return jsonify(list_amenities)
 
-@app_views.route('/api/v1/amenities/<amenity_id>', methods=['GET'],
+@app_views.route('amenities/<amenity_id>', methods=['GET'],
                  strict_slashes=False)
+@swag_from('documentation/amenity/get_amenity.yml', methods=['GET'])
 def get_amenity(amenity_id):
     """
     Retrieves a specific city based on id
@@ -30,8 +32,9 @@ def get_amenity(amenity_id):
         abort(404)
     return jsonify(amenity.to_dict())
 
-@app_views.route('/api/v1/amenities/<amenity_id>', methods=['DELETE'],
+@app_views.route('amenities/<amenity_id>', methods=['DELETE'],
                  strict_slashes=False)
+@swag_from('documentation/amenity/delete_amenity.yml', methods=['DELETE'])
 def delete_amenity(amenity_id):
     """
     Deletes a city based on id provided
@@ -45,8 +48,9 @@ def delete_amenity(amenity_id):
 
     return make_response(jsonify({}), 200)
 
-@app_views.route('/api/v1/amenities', methods=['POST'],
+@app_views.route('amenities', methods=['POST'],
                  strict_slashes=False)
+@swag_from('documentation/amenity/post_amenity.yml', methods=['POST'])
 def post_amenity():
     """
     Creates a City
@@ -61,8 +65,9 @@ def post_amenity():
 
     return make_response(jsonify(new_amenity.to_dict()), 201)
 
-@app_views.route('/api/v1/amenities/<amenity_id>', methods=['PUT'],
+@app_views.route('amenities/<amenity_id>', methods=['PUT'],
                  strict_slashes=False)
+@swag_from('documentation/amenity/put_amenity.yml', methods=['PUT'])
 def put_amenity(amenity_id):
     """
     Updates a city based on id provided
